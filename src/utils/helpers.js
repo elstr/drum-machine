@@ -13,9 +13,9 @@ export const buildStepPattern = channel => {
 
 /**
  * Returns the duration of the steps in milliseconds
- * @param {integer} BPM 
+ * @param {integer} BPM
  */
-export const calculateStepDuration = (BPM = 60) => {
+export const calculateStepDuration = ({ BPM }) => {
   // 0. Calculate the duration of each step
   const durationOfEachFigure = (BPM * 4) / 8;
   // 1. Convert it to milliseconds to use as interval
@@ -29,3 +29,21 @@ export const calculateStepDuration = (BPM = 60) => {
  */
 export const getActiveSteps = () =>
   Array.from(document.getElementsByClassName("step isActive"));
+
+/**
+ * Plays the pattern of the active steps
+ * @param {object: {totalSteps: integer, stepDuration: integer}} 
+ */
+export const playPattern = ({ totalSteps, stepDuration }) => {
+  const activeSteps = getActiveSteps();
+
+  let currentStep = 0;
+
+  window.setInterval(function() {
+    activeSteps
+      .filter(step => step.id.split("-")[2] == currentStep)
+      .map(step => step.children[0].play());
+
+    currentStep = currentStep < totalSteps ? currentStep + 1 : 0;
+  }, stepDuration);
+};
