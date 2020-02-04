@@ -1,3 +1,8 @@
+/**
+ * Returns an object with steps
+ * Each step has an id and a volume
+ * @param {string} channel
+ */
 export const buildStepPattern = channel => {
   let pattern = {};
   for (var i = 0; i < 16; i++) {
@@ -6,6 +11,10 @@ export const buildStepPattern = channel => {
   return pattern;
 };
 
+/**
+ * Returns the duration of the steps in milliseconds
+ * @param {integer} BPM 
+ */
 export const calculateStepDuration = (BPM = 60) => {
   // 0. Calculate the duration of each step
   const durationOfEachFigure = (BPM * 4) / 8;
@@ -15,5 +24,8 @@ export const calculateStepDuration = (BPM = 60) => {
   return durationInMilliseconds;
 };
 
+/**
+ * Returns an array of active steps
+ */
 export const getActiveSteps = () =>
   Array.from(document.getElementsByClassName("step isActive"));
