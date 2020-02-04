@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import { buildStepPattern } from "../../utils/helpers";
+
 // Components
 import Instrument from "../Instrument";
 import Step from "../Step";
@@ -15,17 +17,9 @@ import {
 // Channel S = solo => played solo
 // Channel M = mute => innactive / mute => opacity set
 
-const buildStepPattern = channel => {
-  let pattern = {};
-  for (var i = 0; i < 16; i++) {
-    pattern[`${channel}-step-${i}`] = { id: `${channel}-step-${i}`, volume: 0 };
-  }
-  return pattern;
-};
-
 const Channel = props => {
   const [pattern, setPattern] = useState([]);
-  
+
   useEffect(() => {
     const pattern = buildStepPattern(props.id);
     setPattern(pattern);
