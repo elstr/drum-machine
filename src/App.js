@@ -2,7 +2,11 @@ import React, { useState } from "react";
 
 // Helpers
 import { DEFAULT_CHANNELS, PROPERTIES } from "./utils/constants";
-import { playPattern, calculateStepDuration } from "./utils/helpers";
+import {
+  playPattern,
+  stopPattern,
+  calculateStepDuration
+} from "./utils/helpers";
 
 // Components
 import Controls from "./components/Controls";
@@ -14,10 +18,19 @@ import "./App.css";
 
 const App = () => {
   const [channels, setChannels] = useState(DEFAULT_CHANNELS);
+  const [isPlaying, setPlaying] = useState(false);
 
   const handlePlayPauseClick = () => {
+    if (isPlaying) {
+      setPlaying(false);
+      stopPattern();
+      return;
+    }
+
     const stepDuration = calculateStepDuration({ BPM: 60 });
-    const soloChannels = channels.filter(c => c.solo)
+    const soloChannels = channels.filter(c => c.solo);
+
+    setPlaying(true);
     playPattern({ totalSteps: 15, stepDuration, soloChannels });
   };
 
@@ -48,7 +61,7 @@ const App = () => {
       <header className="App-header">
         <p>Awesome drum machine</p>
       </header>
-      <Controls onPlayPauseClick={handlePlayPauseClick} />
+      <Controls isPlaying={isPlaying} onPlayPauseClick={handlePlayPauseClick} />
       {channels.map((chan, i) => (
         <Channel
           updateChannel={handleChannelUpdate}

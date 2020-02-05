@@ -45,11 +45,12 @@ export const getActiveSteps = soloChannels => {
  * Plays the pattern of the active steps
  * @param {object: {totalSteps: integer, stepDuration: integer, soloChannel: string | null}}
  */
+let intervalPlaying = null;
 export const playPattern = ({ totalSteps, stepDuration, soloChannels }) => {
   const activeSteps = getActiveSteps(soloChannels);
   let currentStep = 0;
 
-  window.setInterval(function() {
+  intervalPlaying = window.setInterval(function() {
     activeSteps
       .filter(step => step.id.split("-")[3] == currentStep)
       .map(step => step.children[0].play());
@@ -57,3 +58,5 @@ export const playPattern = ({ totalSteps, stepDuration, soloChannels }) => {
     currentStep = currentStep < totalSteps ? currentStep + 1 : 0;
   }, stepDuration);
 };
+
+export const stopPattern = () => window.clearInterval(intervalPlaying);
