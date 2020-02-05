@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Helpers
+import { DEFAULT_CHANNELS, PROPERTIES } from "./utils/constants";
 import { playPattern, calculateStepDuration } from "./utils/helpers";
 
 // Components
@@ -11,37 +12,35 @@ import Footer from "./components/Footer";
 // Styles
 import "./App.css";
 
-const channels = [
-  {
-    id: "kick",
-    description: "Kick",
-    color: "palegreen",
-    isMute: false,
-    playSolo: false,
-    soundSrc: "/sounds/kick.wav"
-  },
-  {
-    id: "snare",
-    description: "Snare",
-    color: "deepskyblue",
-    isMute: false,
-    playSolo: false,
-    soundSrc: "/sounds/snare.wav"
-  },
-  {
-    id: "hihat",
-    description: "Hi-Hat",
-    color: "deeppink",
-    isMute: false,
-    playSolo: false,
-    soundSrc: "/sounds/hihat.wav"
-  }
-];
-
 const App = () => {
+  const [channels, setChannels] = useState(DEFAULT_CHANNELS);
+
   const handlePlayPauseClick = () => {
     const stepDuration = calculateStepDuration({ BPM: 60 });
-    playPattern({ totalSteps: 15, stepDuration });
+    const soloChannels = channels.filter(c => c.solo)
+    playPattern({ totalSteps: 15, stepDuration, soloChannels });
+  };
+
+  const handleChannelUpdate = (channelId, property) => {
+    const index = channels.findIndex(c => c.id === channelId);
+    const channelUpdated = Object.assign({}, channels[index]);
+
+    // Channels can't be solo and mute at the same time
+    if (property === PROPERTIES.SOLO) {
+      channelUpdated.solo = !channelUpdated.solo;
+      channelUpdated.mute = false;
+    } else {
+      channelUpdated.solo = false;
+      channelUpdated.mute = !channelUpdated.mute;
+    }
+
+    const updatedChannels = [
+      ...channels.slice(0, index),
+      channelUpdated,
+      ...channels.slice(index + 1)
+    ];
+
+    setChannels(updatedChannels);
   };
 
   return (
@@ -50,8 +49,12 @@ const App = () => {
         <p>Awesome drum machine</p>
       </header>
       <Controls onPlayPauseClick={handlePlayPauseClick} />
-      {channels.map((channel, i) => (
-        <Channel key={`chan${i}`} {...channel} />
+      {channels.map((chan, i) => (
+        <Channel
+          updateChannel={handleChannelUpdate}
+          key={`chan${i}`}
+          {...chan}
+        />
       ))}
       <button>+ Add new channel</button>
       <Footer />

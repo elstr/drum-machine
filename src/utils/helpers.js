@@ -26,22 +26,32 @@ export const calculateStepDuration = ({ BPM }) => {
 
 /**
  * Returns an array of active steps
+ * @param {Array} soloChannels
  */
-export const getActiveSteps = () =>
-  Array.from(document.getElementsByClassName("step isActive"));
+export const getActiveSteps = soloChannels => {
+  if (soloChannels.length) {
+    console.log({soloChannels})
+    const activeSteps = soloChannels.map(c =>
+      Array.from(
+        document.getElementById(c.id).getElementsByClassName("step isActive")
+      )
+    );
+    return [].concat(...activeSteps);
+  }
+  return Array.from(document.querySelectorAll(".step.isActive:not(.mute)"));
+};
 
 /**
  * Plays the pattern of the active steps
- * @param {object: {totalSteps: integer, stepDuration: integer}} 
+ * @param {object: {totalSteps: integer, stepDuration: integer, soloChannel: string | null}}
  */
-export const playPattern = ({ totalSteps, stepDuration }) => {
-  const activeSteps = getActiveSteps();
-
+export const playPattern = ({ totalSteps, stepDuration, soloChannels }) => {
+  const activeSteps = getActiveSteps(soloChannels);
   let currentStep = 0;
 
   window.setInterval(function() {
     activeSteps
-      .filter(step => step.id.split("-")[2] == currentStep)
+      .filter(step => step.id.split("-")[3] == currentStep)
       .map(step => step.children[0].play());
 
     currentStep = currentStep < totalSteps ? currentStep + 1 : 0;

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 
+import { PROPERTIES } from "../../utils/constants";
 import { buildStepPattern } from "../../utils/helpers";
 
 // Components
 import Instrument from "../Instrument";
 import Step from "../Step";
-import { RoundButton } from "../_common";
+
 import {
+  UpdateBtn,
   RemoveBtn,
   ButtonContainer,
   Container,
@@ -14,11 +16,8 @@ import {
   InstrumentContainer
 } from "./styled";
 
-// Channel S = solo => played solo
-// Channel M = mute => innactive / mute => opacity set
-
 const Channel = props => {
-  const [pattern, setPattern] = useState([]);
+  const [pattern, setPattern] = useState({});
 
   useEffect(() => {
     const pattern = buildStepPattern(props.id);
@@ -38,11 +37,22 @@ const Channel = props => {
     setPattern(updatedPattern);
   };
 
+  const { id, solo, mute, updateChannel, soundSrc } = props;
   return (
-    <Container>
+    <Container id={id}>
       <ButtonContainer>
-        <RoundButton>S</RoundButton>
-        <RoundButton>M</RoundButton>
+        <UpdateBtn
+          solo={solo}
+          onClick={() => updateChannel(id, PROPERTIES.SOLO)}
+        >
+          S
+        </UpdateBtn>
+        <UpdateBtn
+          mute={mute}
+          onClick={() => updateChannel(id, PROPERTIES.MUTE)}
+        >
+          M
+        </UpdateBtn>
       </ButtonContainer>
       <InstrumentContainer>
         <Instrument {...props} />
@@ -51,9 +61,10 @@ const Channel = props => {
       <PatternContainer>
         {Object.keys(pattern).map((key, i) => (
           <Step
+            mute={mute}
             key={`step${i}`}
             {...pattern[key]}
-            soundSrc={props.soundSrc}
+            soundSrc={soundSrc}
             onClick={handleStepClick}
           />
         ))}

@@ -34,5 +34,15 @@ const RemoveBtn = styled(RoundButton)`
   right: 0;
   vertical-align: middle;
 `;
+const UpdateBtn = styled(RoundButton)`
+  opacity: ${props => ((props.solo || props.mute) ? 1 : 0.5)};
+`;
 
-export { RemoveBtn, ButtonContainer, Container, PatternContainer, InstrumentContainer };
+export {
+  UpdateBtn,
+  RemoveBtn,
+  ButtonContainer,
+  Container,
+  PatternContainer,
+  InstrumentContainer
+};
