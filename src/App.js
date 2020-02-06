@@ -60,6 +60,12 @@ const App = () => {
   const handleBPMChange = operation =>
     operation === BPM_CHANGE.MORE ? setBPM(BPM + 1) : setBPM(BPM - 1);
 
+  const handleRemoveChannel = channelId => {
+    const index = channels.findIndex(c => c.id === channelId);
+    const updatedChannels = [...channels.slice(0, index), ...channels.slice(index + 1)];
+    setChannels(updatedChannels);
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -73,6 +79,7 @@ const App = () => {
       />
       {channels.map((chan, i) => (
         <Channel
+          removeChannel={handleRemoveChannel}
           updateChannel={handleChannelUpdate}
           key={`chan${i}`}
           {...chan}

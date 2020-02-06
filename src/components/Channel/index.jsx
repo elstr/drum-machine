@@ -37,7 +37,7 @@ const Channel = props => {
     setPattern(updatedPattern);
   };
 
-  const { id, solo, mute, updateChannel, soundSrc } = props;
+  const { id, solo, mute, updateChannel, soundSrc, removeChannel } = props;
   return (
     <Container id={id}>
       <ButtonContainer>
@@ -56,7 +56,7 @@ const Channel = props => {
       </ButtonContainer>
       <InstrumentContainer>
         <Instrument {...props} />
-        <RemoveBtn>X</RemoveBtn>
+        <RemoveBtn onClick={() => removeChannel(id)}>X</RemoveBtn>
       </InstrumentContainer>
       <PatternContainer>
         {Object.keys(pattern).map((key, i) => (
