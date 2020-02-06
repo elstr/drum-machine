@@ -14,15 +14,19 @@ export const buildStepPattern = channel => {
 /**
  * Returns the duration of the steps in milliseconds
  * @param {integer} BPM
+ * We need to calculate how many milliseconds(*) each step takes
+ * to be able to move to the next step in sync.
+ * 
+ * (*) because setInterval works in milliseconds
  */
 export const calculateStepDuration = ({ BPM }) => {
-  // 0. Calculate the duration of each step
-  const durationOfEachFigure = (BPM * 4) / 8;
-  // 1. Convert it to milliseconds to use as interval
-  const durationInMilliseconds = (durationOfEachFigure / 60) * 1000;
+  const BeatsPerSeconds = 60 / BPM
+  const patternDurationInSeconds = BeatsPerSeconds * 4
+  const eachStepDurationInSeconds = patternDurationInSeconds / 8
+  const stepDurationInMilliSec = eachStepDurationInSeconds * 1000
 
-  return durationInMilliseconds;
-};
+  return stepDurationInMilliSec
+}
 
 /**
  * Returns an array of active steps
@@ -30,7 +34,6 @@ export const calculateStepDuration = ({ BPM }) => {
  */
 export const getActiveSteps = soloChannels => {
   if (soloChannels.length) {
-    console.log({soloChannels})
     const activeSteps = soloChannels.map(c =>
       Array.from(
         document.getElementById(c.id).getElementsByClassName("step isActive")
