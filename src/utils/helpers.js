@@ -56,7 +56,8 @@ export const playPattern = ({ totalSteps, stepDuration, soloChannels }) => {
   intervalPlaying = window.setInterval(function() {
     activeSteps
       .filter(step => step.id.split("-")[3] == currentStep)
-      .map(step => step.children[0].play());
+      // we grab the <audio /> inside the step and play it
+      .map(step => step.children[0].play()); 
 
     currentStep = currentStep < totalSteps ? currentStep + 1 : 0;
   }, stepDuration);
