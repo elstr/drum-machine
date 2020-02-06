@@ -1,19 +1,26 @@
 import React from "react";
-import { Button, BPMContainer, Container } from "./styled";
+import { BPM_CHANGE } from "../../utils/constants";
 
-const Controls = ({ onPlayPauseClick, isPlaying }) => {
+import {
+  Button,
+  BPMContainer,
+  Container,
+  PlayPauseBtn,
+  BPMValue,
+  BPMPlus,
+  BPMLess
+} from "./styled";
+
+const Controls = ({ onPlayPauseClick, isPlaying, BPM, moreLessBPMClick }) => {
   return (
     <Container>
-      <Button
-        onClick={() => onPlayPauseClick()}
-        style={{ display: "flex", alignItems: "flex-end" }}
-      >
+      <PlayPauseBtn onClick={() => onPlayPauseClick()}>
         {isPlaying ? "||" : "Play"}
-      </Button>
+      </PlayPauseBtn>
       <BPMContainer>
-        <Button>_</Button>
-        <input type="number" min="60" max="200" />
-        <Button>+</Button>
+        <BPMLess onClick={() => moreLessBPMClick(BPM_CHANGE.LESS)}>-</BPMLess>
+        <BPMValue> {`${BPM} bpm`} </BPMValue>
+        <BPMPlus onClick={() => moreLessBPMClick(BPM_CHANGE.MORE)}>+</BPMPlus>
       </BPMContainer>
     </Container>
   );

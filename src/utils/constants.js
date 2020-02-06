@@ -29,3 +29,9 @@ export const PROPERTIES = {
     SOLO : "solo",
     MUTE: "mute"
 }
+
+export const BPM_CHANGE = {
+    LESS : "less",
+    MORE: "more"
+}
+

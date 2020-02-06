@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // Helpers
-import { DEFAULT_CHANNELS, PROPERTIES } from "./utils/constants";
+import { DEFAULT_CHANNELS, PROPERTIES, BPM_CHANGE } from "./utils/constants";
 import {
   playPattern,
   stopPattern,
@@ -19,6 +19,7 @@ import "./App.css";
 const App = () => {
   const [channels, setChannels] = useState(DEFAULT_CHANNELS);
   const [isPlaying, setPlaying] = useState(false);
+  const [BPM, setBPM] = useState(120);
 
   const handlePlayPauseClick = () => {
     if (isPlaying) {
@@ -27,7 +28,7 @@ const App = () => {
       return;
     }
 
-    const stepDuration = calculateStepDuration({ BPM: 60 });
+    const stepDuration = calculateStepDuration({ BPM });
     const soloChannels = channels.filter(c => c.solo);
 
     setPlaying(true);
@@ -56,12 +57,20 @@ const App = () => {
     setChannels(updatedChannels);
   };
 
+  const handleBPMChange = operation =>
+    operation === BPM_CHANGE.MORE ? setBPM(BPM + 1) : setBPM(BPM - 1);
+
   return (
     <div className="App">
       <header className="App-header">
         <p>Awesome drum machine</p>
       </header>
-      <Controls isPlaying={isPlaying} onPlayPauseClick={handlePlayPauseClick} />
+      <Controls
+        BPM={BPM}
+        moreLessBPMClick={handleBPMChange}
+        isPlaying={isPlaying}
+        onPlayPauseClick={handlePlayPauseClick}
+      />
       {channels.map((chan, i) => (
         <Channel
           updateChannel={handleChannelUpdate}
