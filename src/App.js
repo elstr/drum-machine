@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 
 // Helpers
-import { DEFAULT_CHANNELS, PROPERTIES, BPM_CHANGE, CHANNEL_TYPES } from "./utils/constants";
+import {
+  DEFAULT_CHANNELS,
+  PROPERTIES,
+  BPM_CHANGE,
+  CHANNEL_TYPES
+} from "./utils/constants";
 import {
   playPattern,
   stopPattern,
-  calculateStepDuration, 
+  calculateStepDuration,
   getNewChannelId
 } from "./utils/helpers";
 
 // Components
+import { Button } from "./components/_common";
 import Controls from "./components/Controls";
 import Channel from "./components/Channel";
 import Footer from "./components/Footer";
@@ -70,8 +76,11 @@ const App = () => {
   };
 
   const handleAddChannel = () => {
-    const newId = getNewChannelId({channels, channelType: CHANNEL_TYPES.KICK})
-    const newChannel = Object.assign({}, DEFAULT_CHANNELS[0], {id: newId});
+    const newId = getNewChannelId({
+      channels,
+      channelType: CHANNEL_TYPES.KICK
+    });
+    const newChannel = Object.assign({}, DEFAULT_CHANNELS[0], { id: newId });
     setChannels([...channels, newChannel]);
   };
 
@@ -94,7 +103,7 @@ const App = () => {
           {...chan}
         />
       ))}
-      <button onClick={handleAddChannel}>+ Add new channel</button>
+      <Button onClick={handleAddChannel}>+ Add new channel</Button>
       <Footer />
     </div>
   );

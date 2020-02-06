@@ -28,14 +28,13 @@ const InstrumentContainer = styled.div`
 const RemoveBtn = styled(RoundButton)`
   height: 32px;
   width: 33px;
-  padding: 0;
+  padding: 0 0 0 0.5px;
   position: absolute;
   top: -6px;
   right: 0;
-  vertical-align: middle;
 `;
 const UpdateBtn = styled(RoundButton)`
-  opacity: ${props => ((props.solo || props.mute) ? 1 : 0.5)};
+  opacity: ${props => (props.solo || props.mute ? 1 : 0.5)};
 `;
 
 export {

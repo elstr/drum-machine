@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { PROPERTIES } from "../../utils/constants";
 import { buildStepPattern } from "../../utils/helpers";
+import { RemoveIcon } from "../../assets/svg";
 
 // Components
 import Instrument from "../Instrument";
@@ -56,7 +57,9 @@ const Channel = props => {
       </ButtonContainer>
       <InstrumentContainer>
         <Instrument {...props} />
-        <RemoveBtn onClick={() => removeChannel(id)}>X</RemoveBtn>
+        <RemoveBtn onClick={() => removeChannel(id)}>
+          <RemoveIcon />
+        </RemoveBtn>
       </InstrumentContainer>
       <PatternContainer>
         {Object.keys(pattern).map((key, i) => (
