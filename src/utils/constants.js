@@ -1,6 +1,6 @@
 export const DEFAULT_CHANNELS = [
   {
-    id: "channel-kick",
+    id: "channel-kick-1",
     description: "Kick",
     color: "palegreen",
     mute: false,
@@ -8,7 +8,7 @@ export const DEFAULT_CHANNELS = [
     soundSrc: "/sounds/kick.wav"
   },
   {
-    id: "channel-snare",
+    id: "channel-snare-1",
     description: "Snare",
     color: "deepskyblue",
     mute: false,
@@ -16,7 +16,7 @@ export const DEFAULT_CHANNELS = [
     soundSrc: "/sounds/snare.wav"
   },
   {
-    id: "channel-hihat",
+    id: "channel-hihat-1",
     description: "Hi-Hat",
     color: "deeppink",
     mute: false,
@@ -26,12 +26,17 @@ export const DEFAULT_CHANNELS = [
 ];
 
 export const PROPERTIES = {
-    SOLO : "solo",
-    MUTE: "mute"
-}
+  SOLO: "solo",
+  MUTE: "mute"
+};
 
 export const BPM_CHANGE = {
-    LESS : "less",
-    MORE: "more"
-}
+  LESS: "less",
+  MORE: "more"
+};
 
+export const CHANNEL_TYPES = {
+  KICK: "kick",
+  SNARE: "snare",
+  HIHAT: "hihat"
+};

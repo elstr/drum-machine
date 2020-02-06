@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 
 // Helpers
-import { DEFAULT_CHANNELS, PROPERTIES, BPM_CHANGE } from "./utils/constants";
+import { DEFAULT_CHANNELS, PROPERTIES, BPM_CHANGE, CHANNEL_TYPES } from "./utils/constants";
 import {
   playPattern,
   stopPattern,
-  calculateStepDuration
+  calculateStepDuration, 
+  getNewChannelId
 } from "./utils/helpers";
 
 // Components
@@ -30,7 +31,6 @@ const App = () => {
 
     const stepDuration = calculateStepDuration({ BPM });
     const soloChannels = channels.filter(c => c.solo);
-
     setPlaying(true);
     playPattern({ totalSteps: 15, stepDuration, soloChannels });
   };
@@ -62,9 +62,18 @@ const App = () => {
 
   const handleRemoveChannel = channelId => {
     const index = channels.findIndex(c => c.id === channelId);
-    const updatedChannels = [...channels.slice(0, index), ...channels.slice(index + 1)];
+    const updatedChannels = [
+      ...channels.slice(0, index),
+      ...channels.slice(index + 1)
+    ];
     setChannels(updatedChannels);
-  }
+  };
+
+  const handleAddChannel = () => {
+    const newId = getNewChannelId({channels, channelType: CHANNEL_TYPES.KICK})
+    const newChannel = Object.assign({}, DEFAULT_CHANNELS[0], {id: newId});
+    setChannels([...channels, newChannel]);
+  };
 
   return (
     <div className="App">
@@ -85,7 +94,7 @@ const App = () => {
           {...chan}
         />
       ))}
-      <button>+ Add new channel</button>
+      <button onClick={handleAddChannel}>+ Add new channel</button>
       <Footer />
     </div>
   );

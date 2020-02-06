@@ -64,3 +64,13 @@ export const playPattern = ({ totalSteps, stepDuration, soloChannels }) => {
 };
 
 export const stopPattern = () => window.clearInterval(intervalPlaying);
+
+export const getNewChannelId = ({ channels, channelType }) => {
+  const kicks = channels.filter(c => c.id.includes(`channel-${channelType}`));
+  if (kicks.length) {
+    const lastKickId = kicks.slice(-1)[0].id;
+    const lastNum = parseInt(lastKickId.match(/(\d+)/));
+    return `channel-${channelType}-${lastNum + 1}`;
+  }
+  return `channel-${channelType}-1`;
+};
