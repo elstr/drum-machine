@@ -55,14 +55,12 @@ export const playPattern = ({ totalSteps, stepDuration, soloChannels }) => {
 
   intervalPlaying = window.setInterval(function() {
     activeSteps
-      .filter(step => step.id.split("-")[3] == currentStep)
+      .filter(step => step.id.split("-")[4] == currentStep)
       // we grab the <audio /> inside the step and play it
-      .map(step => step.children[0].play()); 
-
+      .map(step => step.children[0].play());
     currentStep = currentStep < totalSteps ? currentStep + 1 : 0;
   }, stepDuration);
 };
-
 export const stopPattern = () => window.clearInterval(intervalPlaying);
 
 export const getNewChannelId = ({ channels, channelType }) => {
