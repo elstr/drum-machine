@@ -2,6 +2,12 @@
 
 This is my implementation of a drum machine to play different patterns at different BPMs
 
+### Installation:
+
+1) yarn install
+2) yarn start
+3) localhost:3000
+
 ## Features
 
 :sparkles: Dynamic BPMs (+ BPM -)  
