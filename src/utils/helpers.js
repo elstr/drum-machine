@@ -70,7 +70,11 @@ export const playPattern = ({ totalSteps, stepDuration, soloChannels }) => {
     activeSteps
       .filter(step => step.id.split("-")[4] == currentStep)
       // we grab the <audio /> inside the step and play it
-      .map(step => step.children[0].play());
+      .map(step => {
+        const audio = step.children[0];
+        audio.load();
+        audio.play();
+      });
     currentStep = currentStep < totalSteps ? currentStep + 1 : 0;
   }, stepDuration);
 };
