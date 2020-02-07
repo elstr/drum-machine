@@ -1,3 +1,4 @@
+import { DEFAULT_CHANNELS } from "./constants";
 /**
  * Returns an array with steps
  * Each step has an id and a volume
@@ -88,4 +89,22 @@ export const getNewChannelId = ({ channels, channelType }) => {
     return `channel-${channelType}-${lastNum + 1}`;
   }
   return `channel-${channelType}-1`;
+};
+
+export const getNextChannel = ({ id, type, direction }) => {
+  let nextIndex = DEFAULT_CHANNELS.findIndex(c => c.type === type);
+  direction === "up" ? nextIndex-- : nextIndex++;
+
+  let nextChannel;
+  if (nextIndex === -1) {
+    nextChannel = Object.assign({}, DEFAULT_CHANNELS[2]);
+  }
+  if (nextIndex >= 0 && nextIndex <= DEFAULT_CHANNELS.length) {
+    nextChannel = Object.assign({}, DEFAULT_CHANNELS[nextIndex]);
+  }
+  if (nextIndex >= DEFAULT_CHANNELS.length) {
+    nextChannel = Object.assign({}, DEFAULT_CHANNELS[0]);
+  }
+
+  return nextChannel;
 };
