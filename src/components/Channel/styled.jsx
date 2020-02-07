@@ -1,4 +1,6 @@
 import styled from "styled-components";
+
+import { DownIcon, UpIcon } from "../../assets/svg";
 import { RoundButton } from "../_common";
 
 const ButtonContainer = styled.div`
@@ -37,11 +39,39 @@ const UpdateBtn = styled(RoundButton)`
   opacity: ${props => (props.solo || props.mute ? 1 : 0.5)};
 `;
 
+const IconContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 999;
+  top: 17px;
+  left: 15px;
+`;
+
+const StyledIcon = `
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  border-radius: 10px;
+  padding: 2px;
+  cursor: pointer;
+`;
+
+const StyledUpIcon = styled(UpIcon)`
+  ${StyledIcon};
+  margin-bottom: 5px;
+`;
+
+const StyledDownIcon = styled(DownIcon)`
+  ${StyledIcon};
+`;
+
 export {
   UpdateBtn,
   RemoveBtn,
   ButtonContainer,
   Container,
   PatternContainer,
-  InstrumentContainer
+  InstrumentContainer,
+  IconContainer,
+  StyledDownIcon,
+  StyledUpIcon
 };

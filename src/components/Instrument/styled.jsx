@@ -4,10 +4,8 @@ const Description = styled.p`
   color: #fff;
   font-weight: bold;
   font-size: 25px;
-  margin: 0 5px;
-  vertical-align: middle;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   margin: 0 auto;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 `;
 
 const Container = styled.div`
@@ -20,11 +18,7 @@ const Container = styled.div`
   margin: 5px 5px;
   float: left;
   width: 150px;
-  justify-content: center;
   align-items: center;
 `;
 
-export {
-  Description,
-  Container
-};
+export { Description, Container };
