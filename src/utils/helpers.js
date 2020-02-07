@@ -1,4 +1,4 @@
-import { DEFAULT_CHANNELS } from "./constants";
+import { DEFAULT_CHANNELS, DIRECTIONS } from "./constants";
 /**
  * Returns an array with steps
  * Each step has an id and a volume
@@ -38,7 +38,7 @@ export const calculateStepDuration = ({ BPM }) => {
   const patternDurationInSeconds = BeatsPerSeconds * 4;
   const eachStepDurationInSeconds = patternDurationInSeconds / 8;
   const stepDurationInMilliSec = eachStepDurationInSeconds * 1000;
-
+  
   return stepDurationInMilliSec;
 };
 
@@ -93,7 +93,7 @@ export const getNewChannelId = ({ channels, channelType }) => {
 
 export const getNextChannel = ({ id, type, direction }) => {
   let nextIndex = DEFAULT_CHANNELS.findIndex(c => c.type === type);
-  direction === "up" ? nextIndex-- : nextIndex++;
+  direction === DIRECTIONS.UP ? nextIndex-- : nextIndex++;
 
   let nextChannel;
   if (nextIndex === -1) {
