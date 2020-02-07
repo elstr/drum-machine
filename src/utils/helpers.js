@@ -30,17 +30,17 @@ export const updateExistingPattern = ({ existingPattern, newChannelId }) => {
  * @param {integer} BPM
  * We need to calculate how many milliseconds(*) each step takes
  * to be able to move to the next step in sync.
- * 
+ *
  * (*) because setInterval works in milliseconds
  */
 export const calculateStepDuration = ({ BPM }) => {
-  const BeatsPerSeconds = 60 / BPM
-  const patternDurationInSeconds = BeatsPerSeconds * 4
-  const eachStepDurationInSeconds = patternDurationInSeconds / 8
-  const stepDurationInMilliSec = eachStepDurationInSeconds * 1000
+  const BeatsPerSeconds = 60 / BPM;
+  const patternDurationInSeconds = BeatsPerSeconds * 4;
+  const eachStepDurationInSeconds = patternDurationInSeconds / 8;
+  const stepDurationInMilliSec = eachStepDurationInSeconds * 1000;
 
-  return stepDurationInMilliSec
-}
+  return stepDurationInMilliSec;
+};
 
 /**
  * Returns an array of active steps
