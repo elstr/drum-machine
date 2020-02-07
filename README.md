@@ -1,4 +1,4 @@
-# Awesome Drum Machine :musical_note:
+# :musical_note: Awesome Drum Machine
 
 This is my implementation of a drum machine to play different patterns at different BPMs
 
