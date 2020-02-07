@@ -11,6 +11,7 @@ const Step = ({ id, volume, mute, onClick, soundSrc }) => {
   return (
     <Button
       id={id}
+      data-testid={id}
       className={`${volume ? "step isActive" : "step"} ${mute ? "mute" : ""}`}
       volume={volume}
       onClick={stepClick}

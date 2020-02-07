@@ -68,12 +68,14 @@ const Channel = props => {
     <Container id={id}>
       <ButtonContainer>
         <UpdateBtn
+          data-testid={`solo-${id}`}
           solo={solo}
           onClick={() => updateChannel(id, PROPERTIES.SOLO)}
         >
           S
         </UpdateBtn>
         <UpdateBtn
+          data-testid={`mute-${id}`}
           mute={mute}
           onClick={() => updateChannel(id, PROPERTIES.MUTE)}
         >
