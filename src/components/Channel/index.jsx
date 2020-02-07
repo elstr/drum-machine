@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-import { PROPERTIES } from "../../utils/constants";
+import { PROPERTIES, DIRECTIONS } from "../../utils/constants";
 import { buildStepPattern, updateExistingPattern } from "../../utils/helpers";
-import { RemoveIcon } from "../../assets/svg";
 
 // Components
+import { RemoveIcon } from "../../assets/svg";
 import Instrument from "../Instrument";
 import Step from "../Step";
 
@@ -82,8 +82,10 @@ const Channel = props => {
       </ButtonContainer>
       <InstrumentContainer>
         <IconContainer>
-          <StyledUpIcon onClick={() => changeInstrument({id, type}, "up")} />
-          <StyledDownIcon onClick={() => changeInstrument({id, type}, "down")} />
+          <StyledUpIcon onClick={() => changeInstrument({ id, type }, DIRECTIONS.UP)} />
+          <StyledDownIcon
+            onClick={() => changeInstrument({ id, type }, DIRECTIONS.DOWN)}
+          />
         </IconContainer>
         <Instrument {...props} />
         <RemoveBtn onClick={() => removeChannel(id)}>
