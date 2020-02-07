@@ -43,3 +43,8 @@ export const CHANNEL_TYPES = {
   SNARE: "snare",
   HIHAT: "hihat"
 };
+
+export const DIRECTIONS = {
+  UP: "up",
+  DOWN: "down"
+}
