@@ -12,6 +12,19 @@ export const buildStepPattern = channel => {
 };
 
 /**
+ * Returns an array with the existing pattern updated
+ * Changes the step id to the new corresponding id
+ * without loosing the pattern already created
+ * @param {object: {existingPattern: array, newChannelId: string} }
+ */
+export const updateExistingPattern = ({ existingPattern, newChannelId }) => {
+  return existingPattern.map((step, i) =>
+    // steps go from 1 to N => so we need to use i +1
+    Object.assign({}, step, { id: `${newChannelId}-step-${i+1}` })
+  );
+};
+
+/**
  * Returns the duration of the steps in milliseconds
  * @param {integer} BPM
  * We need to calculate how many milliseconds(*) each step takes
