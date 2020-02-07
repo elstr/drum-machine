@@ -1,12 +1,12 @@
 /**
- * Returns an object with steps
+ * Returns an array with steps
  * Each step has an id and a volume
  * @param {string} channel
  */
 export const buildStepPattern = channel => {
-  let pattern = {};
-  for (var i = 0; i < 16; i++) {
-    pattern[`${channel}-step-${i}`] = { id: `${channel}-step-${i}`, volume: 0 };
+  let pattern = [];
+  for (var i = 1; i < 17; i++) {
+    pattern.push({ id: `${channel}-step-${i}`, volume: 0 });
   }
   return pattern;
 };
