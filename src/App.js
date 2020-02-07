@@ -11,7 +11,8 @@ import {
   playPattern,
   stopPattern,
   calculateStepDuration,
-  getNewChannelId
+  getNewChannelId,
+  getNextChannel
 } from "./utils/helpers";
 
 // Components
@@ -83,6 +84,22 @@ const App = () => {
     setChannels([...channels, newChannel]);
   };
 
+  const handleChangeInstrument = (channel, direction) => {
+    const {id, type} = channel
+    const nextChannel = getNextChannel({id, type, direction})
+    nextChannel.id = getNewChannelId({channels, channelType: nextChannel.type})
+
+    const currentIndex = channels.findIndex(c => c.id === id);
+
+    const updatedChannels = [
+      ...channels.slice(0, currentIndex),
+      nextChannel,
+      ...channels.slice(currentIndex + 1)
+    ];
+
+    setChannels(updatedChannels);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -98,6 +115,7 @@ const App = () => {
         <Channel
           removeChannel={handleRemoveChannel}
           updateChannel={handleChannelUpdate}
+          changeInstrument={handleChangeInstrument}
           key={`chan${i}`}
           {...chan}
         />
