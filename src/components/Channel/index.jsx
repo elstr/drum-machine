@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { PROPERTIES } from "../../utils/constants";
-import { buildStepPattern } from "../../utils/helpers";
+import { buildStepPattern, updateExistingPattern } from "../../utils/helpers";
 import { RemoveIcon } from "../../assets/svg";
 
 // Components
@@ -14,16 +14,27 @@ import {
   ButtonContainer,
   Container,
   PatternContainer,
-  InstrumentContainer
+  InstrumentContainer,
+  IconContainer,
+  StyledDownIcon,
+  StyledUpIcon
 } from "./styled";
 
 const Channel = props => {
   const [pattern, setPattern] = useState([]);
 
   useEffect(() => {
-    const pattern = buildStepPattern(props.id);
-    setPattern(pattern);
-  }, []);
+    let newPattern;
+    if (pattern.length === 0) {
+      newPattern = buildStepPattern(props.id);
+    } else {
+      newPattern = updateExistingPattern({
+        existingPattern: pattern,
+        newChannelId: props.id
+      });
+    }
+    setPattern(newPattern);
+  }, [props.soundSrc]);
 
   const handleStepClick = id => {
     const stepIndex = pattern.findIndex(step => step.id === id);
@@ -42,7 +53,17 @@ const Channel = props => {
     setPattern(updatedPattern);
   };
 
-  const { id, solo, mute, updateChannel, soundSrc, removeChannel } = props;
+  const {
+    id,
+    type,
+    solo,
+    mute,
+    updateChannel,
+    soundSrc,
+    removeChannel,
+    changeInstrument
+  } = props;
+
   return (
     <Container id={id}>
       <ButtonContainer>
@@ -60,6 +81,10 @@ const Channel = props => {
         </UpdateBtn>
       </ButtonContainer>
       <InstrumentContainer>
+        <IconContainer>
+          <StyledUpIcon onClick={() => changeInstrument({id, type}, "up")} />
+          <StyledDownIcon onClick={() => changeInstrument({id, type}, "down")} />
+        </IconContainer>
         <Instrument {...props} />
         <RemoveBtn onClick={() => removeChannel(id)}>
           <RemoveIcon />
