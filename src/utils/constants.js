@@ -2,6 +2,7 @@ export const DEFAULT_CHANNELS = [
   {
     id: "channel-kick-1",
     description: "Kick",
+    type: "kick",
     color: "palegreen",
     mute: false,
     solo: false,
@@ -10,6 +11,7 @@ export const DEFAULT_CHANNELS = [
   {
     id: "channel-snare-1",
     description: "Snare",
+    type: "snare",
     color: "deepskyblue",
     mute: false,
     solo: false,
@@ -18,6 +20,7 @@ export const DEFAULT_CHANNELS = [
   {
     id: "channel-hihat-1",
     description: "Hi-Hat",
+    type: "open_hihat",
     color: "deeppink",
     mute: false,
     solo: false,
