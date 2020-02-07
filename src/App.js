@@ -34,11 +34,10 @@ const App = () => {
       stopPattern();
       return;
     }
-
     const stepDuration = calculateStepDuration({ BPM });
     const soloChannels = channels.filter(c => c.solo);
     setPlaying(true);
-    playPattern({ totalSteps: 15, stepDuration, soloChannels });
+    playPattern({ totalSteps: 16, stepDuration, soloChannels });
   };
 
   const handleChannelUpdate = (channelId, property) => {
