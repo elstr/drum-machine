@@ -2,15 +2,18 @@ import React from "react";
 import Button from "./styled";
 
 const Step = ({ id, volume, mute, onClick, soundSrc }) => {
+  const stepClick = () => {
+    const audio = document.getElementById(`audio-${id}`)
+    audio.load();
+    audio.play();
+    onClick(id);
+  }
   return (
     <Button
       id={id}
       className={`${volume ? "step isActive" : "step"} ${mute ? "mute" : ""}`}
       volume={volume}
-      onClick={() => {
-        document.getElementById(`audio-${id}`).play();
-        onClick(id);
-      }}
+      onClick={stepClick}
     >
       <audio id={`audio-${id}`}>
         <source src={soundSrc} type="audio/wav" />
