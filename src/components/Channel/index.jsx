@@ -18,7 +18,7 @@ import {
 } from "./styled";
 
 const Channel = props => {
-  const [pattern, setPattern] = useState({});
+  const [pattern, setPattern] = useState([]);
 
   useEffect(() => {
     const pattern = buildStepPattern(props.id);
@@ -26,15 +26,19 @@ const Channel = props => {
   }, []);
 
   const handleStepClick = id => {
-    const selectedStep = pattern[`${id}`];
-    const updatedStep = Object.assign({}, selectedStep, {
-      volume: selectedStep.volume + 1
+    const stepIndex = pattern.findIndex(step => step.id === id);
+    const updatedStep = Object.assign({}, pattern[stepIndex], {
+      volume: pattern[stepIndex].volume + 1
     });
 
     if (updatedStep.volume === 3) updatedStep.volume = 0;
 
-    const updatedPattern = Object.assign({}, pattern);
-    updatedPattern[`${updatedStep.id}`] = updatedStep;
+    const updatedPattern = [
+      ...pattern.slice(0, stepIndex),
+      updatedStep,
+      ...pattern.slice(stepIndex + 1)
+    ];
+
     setPattern(updatedPattern);
   };
 
@@ -62,11 +66,11 @@ const Channel = props => {
         </RemoveBtn>
       </InstrumentContainer>
       <PatternContainer>
-        {Object.keys(pattern).map((key, i) => (
+        {pattern.map((step, i) => (
           <Step
             mute={mute}
             key={`step${i}`}
-            {...pattern[key]}
+            {...step}
             soundSrc={soundSrc}
             onClick={handleStepClick}
           />
